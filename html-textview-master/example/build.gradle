@@ -1,0 +1,34 @@
+repositories {
+    mavenCentral()
+    maven {
+        url "http://repo.pageturner-reader.org"
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        applicationId "org.sufficientlysecure.htmltextview.example"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    compile project(':HtmlTextView')
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'us.feras.mdv:markdownview:1.1.0'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
+    compile project(':HtmlSpanner')
+}
+
