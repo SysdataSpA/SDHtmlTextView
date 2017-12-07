@@ -1,5 +1,6 @@
 # SDHtmlTextView
-Inspired by HTMLTextView https://github.com/PrivacyApps/html-textview.\n
+Inspired by HTMLTextView https://github.com/PrivacyApps/html-textview.
+
 Inspired by HTMLSpanner https://github.com/NightWhistler/HtmlSpanner.
 
 SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, overriding Html.fromHtml() and handling some CSS style inline properties.
