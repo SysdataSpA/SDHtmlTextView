@@ -1,7 +1,7 @@
 # SDHtmlTextView
-Inspired by HTMLTextView https://github.com/PrivacyApps/html-textview.
-
-Inspired by HTMLSpanner https://github.com/NightWhistler/HtmlSpanner.
+Inspired by:
+* HTMLTextView https://github.com/PrivacyApps/html-textview.
+* HTMLSpanner https://github.com/NightWhistler/HtmlSpanner.
 
 SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, overriding Html.fromHtml() and handling some CSS style inline properties.
 
@@ -45,6 +45,7 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``font-style``
 * ``font-family``
 * ``font-size``
+* ``line-height`` only with measures in px 
 * ``margin-bottom``
 * ``margin-top``
 * ``margin-left``
@@ -57,8 +58,18 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``border-width``
 * ``border``
 
-## Demo
-To run the example demo, clone the repo, import the project in Android Studio and run the app.
+## Usage
+In the xml layout file difine a simple TextView then in the Activity do
+
+```java
+        String html=loadStringFromAssetFile(this,"example.html");
+        TextView tv = (TextView) findViewById(R.id.text);
+        tv.setText((new HtmlSpanner()).fromHtml(html));
+```
+If you want to handle href you need to add
+```java
+        tv.setMovementMethod(LinkMovementMethod.getInstance());
+```
 
 
 
