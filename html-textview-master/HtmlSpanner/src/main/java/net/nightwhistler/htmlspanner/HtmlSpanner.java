@@ -67,6 +67,7 @@ public class HtmlSpanner {
 
     private FontResolver fontResolver;
 
+    private int backgroundColor;
     /**
      * Switch to determine if CSS is used
      */
@@ -110,6 +111,10 @@ public class HtmlSpanner {
 
     public FontFamily getFont( String name ) {
         return this.fontResolver.getFont(name);
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     /**
@@ -394,7 +399,7 @@ public class HtmlSpanner {
                 .setDisplayStyle(Style.DisplayStyle.BLOCK)
                 .setMarginBottom(
                         new StyleValue(1.0f, StyleValue.Unit.EM))
-                .setBorderStyle(borderStyle).setBorderColor(-1);
+                .setBorderStyle(borderStyle).setBorderColor(backgroundColor);
 
 
         TagNodeHandler pHandler = new BorderAttributeHandler(wrap(new StyledTextHandler(paragraphStyle)));
@@ -410,6 +415,10 @@ public class HtmlSpanner {
         registerHandler("p", pHandler);
         registerHandler("div", pHandler);
         registerHandler("span",spanHandler);
+
+        TableHandler tableHandler=new TableHandler();
+        tableHandler.setTextSize(26f);
+        registerHandler("table",tableHandler);
 
         registerHandler("h1", wrap(new HeaderHandler(1.5f, 0.5f)));
         registerHandler("h2", wrap(new HeaderHandler(1.4f, 0.6f)));

@@ -62,7 +62,7 @@ public class HtmlTagHandler implements Html.TagHandler {
      * @param html        String containing HTML, for example: "<b>Hello world!</b>"
      * @return html with replaced <ul> and <li> tags
      */
-    String overrideTags(@Nullable String html){
+    public String overrideTags(@Nullable String html){
 
         if (html == null) return null;
 

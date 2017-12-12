@@ -9,7 +9,7 @@
                 Test display of HTML elements
             </title>
             <style>
-                .limited { width: 15.5em; }
+                .limited { width: 15.5em; background-color:red}
                 .hyphens {
                     -moz-hyphens: auto;
                     -webkit-hyphens: auto;
@@ -69,7 +69,7 @@
         <address>
             <a href="../personal.html" lang="fi" hreflang="en">Jukka Korpela</a>,
             <a href="mailto:jukkakk@gmail.com">jukkakk@gmail.com</A><br>
-            PÃ¤ivÃ¤nsÃ¤teenkuja 4 A, Espoo, Finland
+            Päivänsäteenkuja 4 A, Espoo, Finland
         </address>
         
         <h2>Lists</h2>
@@ -269,16 +269,16 @@
         contain table header cells (<code>th</code> elements) only; other cells
         are data cells (<code>td</code> elements), with <code>align="right"</code>
         attributes:</p>
-        
+
         <TABLE summary=
             "Each row names a Nordic country and specifies its total area and land area, in square kilometers">
             <CAPTION>Sample table: Areas of the Nordic countries, in sq km</CAPTION>
-            <TR><th scope="col">Country</th> <th scope="col">Total area</TH> <th scope="col">Land area</TH>
-                <TR><th scope="row">Denmark</TH> <TD ALIGN=RIGHT> 43,070 </TD><TD ALIGN=RIGHT> 42,370</TR>
-                <TR><th scope="row">Finland</TH> <TD ALIGN=RIGHT>337,030 </TD><TD ALIGN=RIGHT>305,470</TR>
-                <TR><th scope="row">Iceland</TH> <TD ALIGN=RIGHT>103,000 </TD><TD ALIGN=RIGHT>100,250</TR>
-                <TR><th scope="row">Norway</TH>  <TD ALIGN=RIGHT>324,220 </TD><TD ALIGN=RIGHT>307,860</TR>
-                <TR><th scope="row">Sweden</TH>  <TD ALIGN=RIGHT>449,964 </TD><TD ALIGN=RIGHT>410,928</TR>
+            <TR><th>Country</th> <th>Total area</th> <th>Land area</th> </TR>
+            <TR><td>Denmark</td> <TD ALIGN=RIGHT> 43,070 </TD><TD ALIGN=RIGHT> 42,370 </TD></TR>
+            <TR><td>Finland</td> <TD ALIGN=RIGHT>337,030 </TD><TD ALIGN=RIGHT>305,470 </TD></TR>
+            <TR><td>Iceland</td> <TD ALIGN=RIGHT>103,000 </TD><TD ALIGN=RIGHT>100,250</TD></TR>
+            <TR><td>Norway</td>  <TD ALIGN=RIGHT>324,220 </TD><TD ALIGN=RIGHT>307,860</TD></TR>
+            <TR><td>Sweden</td>  <TD ALIGN=RIGHT>449,964 </TD><TD ALIGN=RIGHT>410,928</TD></TR>
         </TABLE>
         
         <h2>Character test</h2>
@@ -290,7 +290,7 @@
         
         <table>
             <tr><th>Char. <th>Explanation <th>Notes
-                <tr><td>Ãª <td>e with circumflex <td>Latin 1 character, should be ok
+                <tr><td>ê <td>e with circumflex <td>Latin 1 character, should be ok
                     <tr><td>&#8212; <td>em dash <td>Windows Latin 1 character, should be ok, too
                         <tr><td>&#x100; <td>A with macron (line above) <td>Latin Extended-A character, not present in all fonts
                             <tr><td>&Omega; <td>capital omega <td>A Greek letter
@@ -303,19 +303,19 @@
         depending on support to various methods of hyphenation.</p>
         
         <h3>CSS-based hyphenation</h3>
-        <p class="limited hyphens">Until recently the great majority of naturalists believed that species were immutable productions, and had been separately created. This view has been ably maintained by many authors.
+        <p class="limited">Until recently the great majority of naturalists believed that species were immutable productions, and had been separately created. This view has been ably maintained by many authors.
         
         <h3>JavaScript-driven hyphenation</h3>
-        <p class="limited hyphenate">Until recently the great majority of naturalists believed that species were immutable productions, and had been separately created. This view has been ably maintained by many authors.
+        <p class="limited">Until recently the great majority of naturalists believed that species were immutable productions, and had been separately created. This view has been ably maintained by many authors.
         
         <h3>Explicit hyphenation hints (soft hyphens)</h3>
-        <p class="limited">UnÂ­til reÂ­centÂ­ly the great
-        maÂ­jorÂ­iÂ­ty of natÂ­uÂ­ralÂ­ists
-        beÂ­lieved that speÂ­cies were
-        imÂ­muÂ­taÂ­ble
-        proÂ­ducÂ­tions,
-        and had been sepÂ­aÂ­rateÂ­ly creÂ­atÂ­ed.
-        This view has been ably mainÂ­tainÂ­ed by many auÂ­thors.
+        <p class="limited">Un­til re­cent­ly the great
+        ma­jor­i­ty of nat­u­ral­ists
+        be­lieved that spe­cies were
+        im­mu­ta­ble
+        pro­duc­tions,
+        and had been sep­a­rate­ly cre­at­ed.
+        This view has been ably main­tain­ed by many au­thors.
         
         
         <HR TITLE="Information about this document">
@@ -334,4 +334,4 @@
     </BODY>
     
 </HTML>
-
+

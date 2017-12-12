@@ -24,6 +24,7 @@ import android.graphics.drawable.shapes.RectShape;
 import android.util.Log;
 import net.nightwhistler.htmlspanner.SpanStack;
 import net.nightwhistler.htmlspanner.TagNodeHandler;
+import net.nightwhistler.htmlspanner.spans.BorderSpan;
 
 import org.htmlcleaner.ContentNode;
 import org.htmlcleaner.TagNode;
@@ -117,6 +118,12 @@ public class TableHandler extends TagNodeHandler {
                 return;
             }
 
+			if (tagNode.getName().equals("th")) {
+				Spanned result = this.getSpanner().fromTagNode(tagNode, null);
+				table.addCell(result);
+				return;
+			}
+
             if (tagNode.getName().equals("tr")) {
                 table.addRow();
             }
@@ -132,7 +139,7 @@ public class TableHandler extends TagNodeHandler {
 
         String border = node.getAttributeByName("border");
 
-        boolean drawBorder = !"0".equals(border);
+        boolean drawBorder = !"0".equals(border)&& border!=null ;
 
 		Table result = new Table(drawBorder);
 
@@ -192,8 +199,8 @@ public class TableHandler extends TagNodeHandler {
 			drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
 					drawable.getIntrinsicHeight());
 
-			spanStack.pushSpan(new ImageSpan(drawable), start + i, builder.length());
-
+			builder.setSpan(new ImageSpan(drawable), start + i, builder.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			builder.append("\n");
 		}
 
         /*
@@ -203,9 +210,9 @@ public class TableHandler extends TagNodeHandler {
         builder.append("\uFFFC");
         Drawable drawable = new TableRowDrawable(new ArrayList<Spanned>(), table.isDrawBorder());
         drawable.setBounds(0, 0, tableWidth, 1);
+
         builder.setSpan(new ImageSpan(drawable), builder.length() -1, builder.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         /*
          Center the entire table
          */
