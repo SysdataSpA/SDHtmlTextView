@@ -35,6 +35,9 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``<a href="...">``
 * ``<img src="...">``
 * ``<table>``
+* ``<u>``
+* ``<hr/>``
+
 
 ### CSS Tags supported 
 
@@ -58,14 +61,18 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``border-color``
 * ``border-width``
 * ``border``
+* ``text-decoration`` only underline and line-through 
 
 ## Usage
-In the xml layout file difine a simple TextView then in the Activity do
+In the xml layout file define a simple TextView then in the Activity do
 
 ```java
         String html=loadStringFromAssetFile(this,"example.html");
         TextView tv = (TextView) findViewById(R.id.text);
-        tv.setText((new HtmlSpanner()).fromHtml(html));
+        int col=tv.getSolidColor();
+        HtmlSpanner htmlSpanner=new HtmlSpanner();
+        htmlSpanner.setBackgroundColor(col);
+        tv.setText(htmlSpanner.fromHtml(html));
 ```
 If you want to handle href you need to add
 ```java
