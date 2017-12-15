@@ -80,6 +80,14 @@ public class StyleValue {
         return this.floatValue;
     }
 
+    public void setIntValue(Integer intValue) {
+        this.intValue = intValue;
+    }
+
+    public void setFloatValue(Float floatValue) {
+        this.floatValue = floatValue;
+    }
+
     public Unit getUnit() {
         return this.unit;
     }

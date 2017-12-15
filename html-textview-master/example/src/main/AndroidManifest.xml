@@ -18,10 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".WebViewActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".DataBindingExampleActivity" />
     </application>
 
 </manifest>

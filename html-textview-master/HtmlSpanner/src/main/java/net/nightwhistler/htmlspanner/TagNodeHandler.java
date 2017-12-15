@@ -18,6 +18,7 @@ package net.nightwhistler.htmlspanner;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import net.nightwhistler.htmlspanner.spans.FontFamilySpan;
 import net.nightwhistler.htmlspanner.spans.LineHeightSpanImpl;

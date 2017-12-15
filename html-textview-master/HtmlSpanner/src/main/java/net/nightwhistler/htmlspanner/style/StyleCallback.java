@@ -134,6 +134,16 @@ public class StyleCallback implements SpanCallback {
 
         }
 
+        //apply text decoration
+        if(useStyle.getTextDecoration() != null){
+
+            switch (useStyle.getTextDecoration()){
+                case UNDERLINE: {builder.setSpan(new UnderlineSpan(), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); break;}
+                case LINETHROUGH: {builder.setSpan(new StrikethroughSpan(), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);break;}
+                default: break;
+            }
+        }
+
 
         if ( useStyle.getTextIndent() != null ) {
 

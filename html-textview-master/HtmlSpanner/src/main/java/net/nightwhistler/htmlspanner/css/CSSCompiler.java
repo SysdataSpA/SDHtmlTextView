@@ -1,5 +1,6 @@
 package net.nightwhistler.htmlspanner.css;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
 import com.osbcp.cssparser.PropertyValue;
@@ -24,6 +25,8 @@ import java.util.List;
  *
  */
 public class CSSCompiler {
+
+    private static final int SCREEN_DENSITY=160;
 
     public static interface StyleUpdater {
         Style updateStyle( Style style, HtmlSpanner spanner );
@@ -227,6 +230,28 @@ public class CSSCompiler {
             }
         }
 
+        //Text decoration definition
+        if ( "text-decoration".equals(key)) {
+            try {
+                String temp_value=value;
+                if(temp_value.equals("line-through")){
+                    temp_value="linethrough";
+                }
+                final Style.TextDecoration textDecoration = Style.TextDecoration.valueOf(temp_value.toUpperCase());
+                return new StyleUpdater() {
+                    @Override
+                    public Style updateStyle(Style style, HtmlSpanner spanner) {
+                        Log.d("CSSCompiler", "Applying style " + key + ": " + value );
+                        return style.setTextDecoration(textDecoration);
+                    }
+                };
+
+            } catch ( IllegalArgumentException i ) {
+                Log.e("CSSCompiler", "Can't parse alignment: " + value);
+                return null;
+            }
+        }
+
         if ( "font-weight".equals(key)) {
 
             try {
@@ -285,6 +310,18 @@ public class CSSCompiler {
 
             if ( styleValue != null ) {
 
+
+                if(styleValue.getUnit().equals(StyleValue.Unit.PX)){
+                    Log.i("value","int:"+styleValue.getIntValue());
+                    int dp=(int) ((styleValue.getIntValue()) / SCREEN_DENSITY);
+                    styleValue.setIntValue(dp);
+                }
+//                else{
+//                    Log.i("value"," float:"+styleValue.getFloatValue());
+//                    float f=styleValue.getFloatValue();
+//                    int dp=(int) (f / SCREEN_DENSITY);
+//                    styleValue.setFloatValue(Float.parseFloat(""+dp));
+//                }
                 return new StyleUpdater() {
                     @Override
                     public Style updateStyle(Style style, HtmlSpanner spanner) {

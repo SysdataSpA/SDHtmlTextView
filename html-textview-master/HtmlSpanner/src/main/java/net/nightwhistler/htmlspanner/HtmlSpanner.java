@@ -22,12 +22,14 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.graphics.Color;
 import android.util.Log;
 import net.nightwhistler.htmlspanner.exception.ParsingCancelledException;
 import net.nightwhistler.htmlspanner.handlers.*;
 import net.nightwhistler.htmlspanner.handlers.attributes.AlignmentAttributeHandler;
 
 import net.nightwhistler.htmlspanner.handlers.attributes.BorderAttributeHandler;
+import net.nightwhistler.htmlspanner.handlers.attributes.HorizontalLineHandler;
 import net.nightwhistler.htmlspanner.handlers.attributes.StyleAttributeHandler;
 import net.nightwhistler.htmlspanner.style.Style;
 import net.nightwhistler.htmlspanner.handlers.StyledTextHandler;
@@ -370,6 +372,8 @@ public class HtmlSpanner {
 
         registerHandler("b", boldHandler);
         registerHandler("strong", boldHandler);
+        //Underline added
+        registerHandler("u",new UnderlineHandler());
 
         TagNodeHandler marginHandler = new StyledTextHandler(
                 new Style().setMarginLeft(new StyleValue(2.0f, StyleValue.Unit.EM)));
@@ -394,6 +398,18 @@ public class HtmlSpanner {
         registerHandler("br", brHandler);
 
         Style.BorderStyle borderStyle = Style.BorderStyle.valueOf("solid".toUpperCase());
+
+        //HR handler
+        Style hrStyle = new Style()
+                .setDisplayStyle(Style.DisplayStyle.BLOCK)
+                .setMarginBottom(
+                        new StyleValue(1.0f, StyleValue.Unit.EM))
+                .setBorderStyle(borderStyle).setBorderColor(Color.parseColor("#000000")).setBackgroundColor(backgroundColor);
+
+
+        TagNodeHandler hrHandler = new HorizontalLineHandler(wrap(new StyledTextHandler(hrStyle)));
+
+        registerHandler("hr", hrHandler);
 
         Style paragraphStyle = new Style()
                 .setDisplayStyle(Style.DisplayStyle.BLOCK)

@@ -25,7 +25,6 @@ android {
 }
 
 dependencies {
-    compile project(':HtmlTextView')
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'us.feras.mdv:markdownview:1.1.0'
     compile 'jp.wasabeef:richeditor-android:1.2.2'
