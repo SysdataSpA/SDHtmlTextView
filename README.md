@@ -60,7 +60,7 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``border``
 
 ## Usage
-In the xml layout file difine a simple TextView then in the Activity do
+In the xml layout file define a simple TextView then in the Activity do
 
 ```java
         String html=loadStringFromAssetFile(this,"example.html");
