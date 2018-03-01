@@ -37,11 +37,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         String html=loadStringFromAssetFile(this,"example.html");
         TextView tv = (TextView) findViewById(R.id.twxt);
         int col=tv.getSolidColor();
-        HtmlSpanner htmlSpanner=new HtmlSpanner();
+        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize());
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
         tv.setMovementMethod(LinkMovementMethod.getInstance());

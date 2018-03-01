@@ -19,15 +19,17 @@ repositories {
 dependencies {
     compile 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
     compile 'com.osbcp.cssparser:cssparser:1.5'
+    compile 'io.reactivex:rxjava:1.2.10'
+    compile 'io.reactivex:rxandroid:1.2.1'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.0"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 19
+        targetSdkVersion 21
     }
 }
 

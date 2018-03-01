@@ -28,6 +28,7 @@ public class StyledTextHandler extends TagNodeHandler {
     }
 
     public Style getStyle() {
+        style.setFontFamily(getSpanner().getFont("sans-serif"));
         return style;
     }
 

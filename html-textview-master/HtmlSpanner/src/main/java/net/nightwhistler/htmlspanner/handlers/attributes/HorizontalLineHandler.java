@@ -33,7 +33,7 @@ public class HorizontalLineHandler extends WrappingStyleHandler {
         spanStack.pushSpan(new HorizontalLineSpan(useStyle, start, end), start, end);
         appendNewLine(builder);
 
-        /*super.handleTagNode(node, builder, start, end, useStyle, spanStack);*/
+        super.handleTagNode(node, builder, start, end, useStyle, spanStack);
 
     }
 

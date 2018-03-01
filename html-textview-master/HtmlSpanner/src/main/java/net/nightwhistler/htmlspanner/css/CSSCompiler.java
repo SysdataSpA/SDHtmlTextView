@@ -2,6 +2,7 @@ package net.nightwhistler.htmlspanner.css;
 
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import com.osbcp.cssparser.PropertyValue;
 import com.osbcp.cssparser.Rule;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class CSSCompiler {
 
-    private static final int SCREEN_DENSITY=160;
+    private static final float SCREEN_DENSITY=(Resources.getSystem().getDisplayMetrics().densityDpi)/ DisplayMetrics.DENSITY_DEFAULT;
 
     public static interface StyleUpdater {
         Style updateStyle( Style style, HtmlSpanner spanner );
@@ -313,14 +314,13 @@ public class CSSCompiler {
 
                 if(styleValue.getUnit().equals(StyleValue.Unit.PX)){
                     Log.i("value","int:"+styleValue.getIntValue());
-                    int dp=(int) ((styleValue.getIntValue()) / SCREEN_DENSITY);
+                    int dp=(int) ((styleValue.getIntValue()) * SCREEN_DENSITY);
                     styleValue.setIntValue(dp);
                 }
 //                else{
 //                    Log.i("value"," float:"+styleValue.getFloatValue());
 //                    float f=styleValue.getFloatValue();
-//                    int dp=(int) (f / SCREEN_DENSITY);
-//                    styleValue.setFloatValue(Float.parseFloat(""+dp));
+//                    styleValue.setFloatValue(f/SCREEN_DENSITY);
 //                }
                 return new StyleUpdater() {
                     @Override
