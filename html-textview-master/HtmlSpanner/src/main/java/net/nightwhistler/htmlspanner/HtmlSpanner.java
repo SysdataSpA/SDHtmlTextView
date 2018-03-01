@@ -20,9 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 import net.nightwhistler.htmlspanner.exception.ParsingCancelledException;
 import net.nightwhistler.htmlspanner.handlers.*;
@@ -70,6 +72,11 @@ public class HtmlSpanner {
     private FontResolver fontResolver;
 
     private int backgroundColor;
+
+    private int textColor;
+
+    private float textSize;
+
     /**
      * Switch to determine if CSS is used
      */
@@ -79,13 +86,70 @@ public class HtmlSpanner {
      * If CSS colours are used
      */
     private boolean useColoursFromStyle = true;
+    private static Map<String, String> htmlTagsDictionary;
+
+    static {
+        htmlTagsDictionary = new LinkedHashMap<>();
+        htmlTagsDictionary.put("\r\n", "\n");
+        htmlTagsDictionary.put("\r", "\n");
+        htmlTagsDictionary.put("\n","<br>");
+        htmlTagsDictionary.put("&gt;", ">");
+        htmlTagsDictionary.put("&lt;", "<");
+        htmlTagsDictionary.put("&bull;", "•");
+        htmlTagsDictionary.put("&#39;", "'");
+        htmlTagsDictionary.put("&euro;", "€");
+        htmlTagsDictionary.put("&#36;", "$");
+        htmlTagsDictionary.put("&nbsp;", " ");
+        htmlTagsDictionary.put("&rsquo;", "'");
+        htmlTagsDictionary.put("&lsquo;", "'");
+        htmlTagsDictionary.put("&ldquo;", "\"");
+        htmlTagsDictionary.put("&rdquo;", "\"");
+        htmlTagsDictionary.put("&ndash;", "-");
+        htmlTagsDictionary.put("&#95;", "_");
+        htmlTagsDictionary.put("&copy;", "&#169;");
+        htmlTagsDictionary.put("&divide;", "&#247;");
+        htmlTagsDictionary.put("&micro;", "&#181;");
+        htmlTagsDictionary.put("&middot;", "&#183;");
+        htmlTagsDictionary.put("&para;", "&#182;");
+        htmlTagsDictionary.put("&plusmn;", "&#177;");
+        htmlTagsDictionary.put("&reg;", "&#174;");
+        htmlTagsDictionary.put("&sect;", "&#167;");
+        htmlTagsDictionary.put("&trade;", "&#153;");
+        htmlTagsDictionary.put("&yen;", "&#165;");
+        htmlTagsDictionary.put("&pound;", "£");
+        htmlTagsDictionary.put("&raquo;", ">>");
+        htmlTagsDictionary.put("&laquo;", "<<");
+        htmlTagsDictionary.put("&hellip;", "...");
+        htmlTagsDictionary.put("&agrave;", "à");
+        htmlTagsDictionary.put("&egrave;", "è");
+        htmlTagsDictionary.put("&igrave;", "ì");
+        htmlTagsDictionary.put("&ograve;", "ò");
+        htmlTagsDictionary.put("&ugrave;", "ù");
+        htmlTagsDictionary.put("&aacute;", "á");
+        htmlTagsDictionary.put("&eacute;", "é");
+        htmlTagsDictionary.put("&iacute;", "í");
+        htmlTagsDictionary.put("&oacute;", "ó");
+        htmlTagsDictionary.put("&uacute;", "ú");
+        htmlTagsDictionary.put("&Agrave;", "À");
+        htmlTagsDictionary.put("&Egrave;", "È");
+        htmlTagsDictionary.put("&Igrave;", "Ì");
+        htmlTagsDictionary.put("&Ograve;", "Ò");
+        htmlTagsDictionary.put("&Ugrave;", "Ù");
+        htmlTagsDictionary.put("&Aacute;", "Á");
+        htmlTagsDictionary.put("&Eacute;", "É");
+        htmlTagsDictionary.put("&Iacute;", "Í");
+        htmlTagsDictionary.put("&Oacute;", "Ó");
+        htmlTagsDictionary.put("&Uacute;", "Ú");
+        htmlTagsDictionary.put("<h1>","<h1 style=\"font-weight:bold\">");
+        htmlTagsDictionary.put("<h2>","<h2 style=\"font-weight:bold\">");
+    }
 
 
     /**
      * Creates a new HtmlSpanner using a default HtmlCleaner instance.
      */
-    public HtmlSpanner() {
-        this(createHtmlCleaner(), new SystemFontResolver());
+    public HtmlSpanner(int textColor,float textSize) {
+        this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize);
     }
 
     /**
@@ -95,11 +159,12 @@ public class HtmlSpanner {
      *
      * @param cleaner
      */
-    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver) {
+    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize) {
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
         this.handlers = new HashMap<String, TagNodeHandler>();
-
+        this.textColor=textColor;
+        this.textSize=textSize;
         registerBuiltInHandlers();
     }
 
@@ -117,6 +182,14 @@ public class HtmlSpanner {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
     }
 
     /**
@@ -205,6 +278,12 @@ public class HtmlSpanner {
      * @return a Spanned version of the text.
      */
     public Spannable fromHtml(String html) {
+        if(html!=null){
+            if(!TextUtils.isEmpty(html)){
+               html=replaceHtmlTags(html);
+            }
+        }
+        Log.i("HTML",html);
         return fromTagNode(this.htmlCleaner.clean(html), null);
     }
 
@@ -371,6 +450,7 @@ public class HtmlSpanner {
                 new Style().setFontWeight(Style.FontWeight.BOLD));
 
         registerHandler("b", boldHandler);
+        registerHandler("bold", boldHandler);
         registerHandler("strong", boldHandler);
         //Underline added
         registerHandler("u",new UnderlineHandler());
@@ -396,16 +476,13 @@ public class HtmlSpanner {
         TagNodeHandler brHandler = new NewLineHandler(1, inlineAlignment);
 
         registerHandler("br", brHandler);
+        registerHandler("br/", brHandler);
 
         Style.BorderStyle borderStyle = Style.BorderStyle.valueOf("solid".toUpperCase());
 
         //HR handler
         Style hrStyle = new Style()
-                .setDisplayStyle(Style.DisplayStyle.BLOCK)
-                .setMarginBottom(
-                        new StyleValue(1.0f, StyleValue.Unit.EM))
-                .setBorderStyle(borderStyle).setBorderColor(Color.parseColor("#000000")).setBackgroundColor(backgroundColor);
-
+                .setDisplayStyle(Style.DisplayStyle.BLOCK);
 
         TagNodeHandler hrHandler = new HorizontalLineHandler(wrap(new StyledTextHandler(hrStyle)));
 
@@ -433,15 +510,16 @@ public class HtmlSpanner {
         registerHandler("span",spanHandler);
 
         TableHandler tableHandler=new TableHandler();
-        tableHandler.setTextSize(26f);
+        tableHandler.setTextSize(textSize * 0.83f);
+        tableHandler.setTextColor(textColor);
         registerHandler("table",tableHandler);
 
-        registerHandler("h1", wrap(new HeaderHandler(1.5f, 0.5f)));
-        registerHandler("h2", wrap(new HeaderHandler(1.4f, 0.6f)));
-        registerHandler("h3", wrap(new HeaderHandler(1.3f, 0.7f)));
-        registerHandler("h4", wrap(new HeaderHandler(1.2f, 0.8f)));
-        registerHandler("h5", wrap(new HeaderHandler(1.1f, 0.9f)));
-        registerHandler("h6", wrap(new HeaderHandler(1f, 1f)));
+        registerHandler("h1", wrap(new HeaderHandler(2f, 0.5f)));
+        registerHandler("h2", wrap(new HeaderHandler(1.5f, 0.6f)));
+        registerHandler("h3", wrap(new HeaderHandler(1.17f, 0.7f)));
+        registerHandler("h4", wrap(new HeaderHandler(1.12f, 0.8f)));
+        registerHandler("h5", wrap(new HeaderHandler(0.83f, 0.9f)));
+        registerHandler("h6", wrap(new HeaderHandler(0.75f, 1f)));
 
         TagNodeHandler preHandler = new PreHandler();
         registerHandler("pre", preHandler);
@@ -474,6 +552,19 @@ public class HtmlSpanner {
 
         registerHandler("font", new FontHandler() );
 
+    }
+
+    public static String replaceHtmlTags(String inputString) {
+        if (inputString == null) {
+            return null;
+        }
+
+        // before apply typefaces, replace all tags
+        for (Map.Entry<String, String> entry : htmlTagsDictionary.entrySet()) {
+            inputString = inputString.replace(entry.getKey(), entry.getValue());
+            inputString = inputString.replace(entry.getKey().toUpperCase(), entry.getValue());
+        }
+        return inputString;
     }
 
     public static interface CancellationCallback {

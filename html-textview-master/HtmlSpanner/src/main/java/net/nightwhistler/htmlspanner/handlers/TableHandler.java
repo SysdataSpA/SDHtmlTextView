@@ -51,9 +51,9 @@ import android.text.style.ImageSpan;
  */
 public class TableHandler extends TagNodeHandler {
 
-	private int tableWidth = 400;
+	private int tableWidth = 500;
 	private Typeface typeFace = Typeface.DEFAULT;
-	private float textSize = 16f;
+	private float textSize = 26f;
 	private int textColor = Color.BLACK;
 
 	private static final int PADDING = 5;
@@ -75,6 +75,7 @@ public class TableHandler extends TagNodeHandler {
 	 * @param textColor
 	 */
 	public void setTextColor(int textColor) {
+		Log.i("color",""+textColor);
 		this.textColor = textColor;
 	}
 
