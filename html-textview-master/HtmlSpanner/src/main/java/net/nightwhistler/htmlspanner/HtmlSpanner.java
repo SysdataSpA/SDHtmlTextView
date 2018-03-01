@@ -16,33 +16,44 @@
 
 package net.nightwhistler.htmlspanner;
 
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.util.Log;
+
+import net.nightwhistler.htmlspanner.exception.ParsingCancelledException;
+import net.nightwhistler.htmlspanner.handlers.FontHandler;
+import net.nightwhistler.htmlspanner.handlers.HeaderHandler;
+import net.nightwhistler.htmlspanner.handlers.ImageHandler;
+import net.nightwhistler.htmlspanner.handlers.LinkHandler;
+import net.nightwhistler.htmlspanner.handlers.ListItemHandler;
+import net.nightwhistler.htmlspanner.handlers.MonoSpaceHandler;
+import net.nightwhistler.htmlspanner.handlers.NewLineHandler;
+import net.nightwhistler.htmlspanner.handlers.PreHandler;
+import net.nightwhistler.htmlspanner.handlers.StyleNodeHandler;
+import net.nightwhistler.htmlspanner.handlers.StyledTextHandler;
+import net.nightwhistler.htmlspanner.handlers.SubScriptHandler;
+import net.nightwhistler.htmlspanner.handlers.SuperScriptHandler;
+import net.nightwhistler.htmlspanner.handlers.TableHandler;
+import net.nightwhistler.htmlspanner.handlers.UnderlineHandler;
+import net.nightwhistler.htmlspanner.handlers.attributes.AlignmentAttributeHandler;
+import net.nightwhistler.htmlspanner.handlers.attributes.BorderAttributeHandler;
+import net.nightwhistler.htmlspanner.handlers.attributes.HorizontalLineHandler;
+import net.nightwhistler.htmlspanner.handlers.attributes.StyleAttributeHandler;
+import net.nightwhistler.htmlspanner.style.Style;
+import net.nightwhistler.htmlspanner.style.StyleValue;
+
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.ContentNode;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import android.graphics.Color;
-import android.text.TextUtils;
-import android.util.Log;
-import net.nightwhistler.htmlspanner.exception.ParsingCancelledException;
-import net.nightwhistler.htmlspanner.handlers.*;
-import net.nightwhistler.htmlspanner.handlers.attributes.AlignmentAttributeHandler;
-
-import net.nightwhistler.htmlspanner.handlers.attributes.BorderAttributeHandler;
-import net.nightwhistler.htmlspanner.handlers.attributes.HorizontalLineHandler;
-import net.nightwhistler.htmlspanner.handlers.attributes.StyleAttributeHandler;
-import net.nightwhistler.htmlspanner.style.Style;
-import net.nightwhistler.htmlspanner.handlers.StyledTextHandler;
-import net.nightwhistler.htmlspanner.style.StyleValue;
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.ContentNode;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.TagNode;
-
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 
 /**
  * HtmlSpanner provides an alternative to Html.fromHtml() from the Android
@@ -142,6 +153,7 @@ public class HtmlSpanner {
         htmlTagsDictionary.put("&Uacute;", "Ú");
         htmlTagsDictionary.put("<h1>","<h1 style=\"font-weight:bold\">");
         htmlTagsDictionary.put("<h2>","<h2 style=\"font-weight:bold\">");
+        htmlTagsDictionary.put("<ul>","<br><ul>");
     }
 
 
