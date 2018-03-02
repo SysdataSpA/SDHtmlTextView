@@ -88,6 +88,8 @@ public class HtmlSpanner {
 
     private float textSize;
 
+    private int lineHeight;
+
     /**
      * Switch to determine if CSS is used
      */
@@ -160,8 +162,8 @@ public class HtmlSpanner {
     /**
      * Creates a new HtmlSpanner using a default HtmlCleaner instance.
      */
-    public HtmlSpanner(int textColor,float textSize) {
-        this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize);
+    public HtmlSpanner(int textColor,float textSize, int lineHeight) {
+        this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize,lineHeight);
     }
 
     /**
@@ -171,12 +173,14 @@ public class HtmlSpanner {
      *
      * @param cleaner
      */
-    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize) {
+    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize,int lineHeight) {
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
         this.handlers = new HashMap<String, TagNodeHandler>();
         this.textColor=textColor;
         this.textSize=textSize;
+        Log.i("lineHeight",""+lineHeight);
+        this.lineHeight=lineHeight;
         registerBuiltInHandlers();
     }
 
@@ -202,6 +206,14 @@ public class HtmlSpanner {
 
     public void setTextSize(float textSize) {
         this.textSize = textSize;
+    }
+
+    public float getTextSize() {
+        return textSize;
+    }
+
+    public int getLineHeight() {
+        return lineHeight;
     }
 
     /**
