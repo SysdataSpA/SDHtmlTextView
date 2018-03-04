@@ -40,7 +40,9 @@ public class MainActivity extends Activity {
         String html=loadStringFromAssetFile(this,"example.html");
         TextView tv = (TextView) findViewById(R.id.twxt);
         int col=tv.getSolidColor();
-        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize(),tv.getLineHeight());
+        int fontHeight = tv.getPaint().getFontMetricsInt(null);
+        Log.i("font height",""+fontHeight);
+        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize(),fontHeight);
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
         tv.setMovementMethod(LinkMovementMethod.getInstance());

@@ -30,16 +30,18 @@ public class LineHeightSpanImpl implements LineHeightSpan {
     public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v,
                              Paint.FontMetricsInt fm) {
 
+        Log.i("fmAscent",""+fm.ascent);
+        Log.i("fmDescent",""+fm.descent);
+        Log.i("fmTop",""+fm.top);
+        Log.i("fmBottom",""+fm.bottom);
         if(ascent==0&&descent==0){
 
-            Log.i("sizeH",""+Math.abs(mSize));
-            mSize-=lineHeight;
-            Log.i("sizeH",""+Math.abs(mSize));
-            Log.i("sizeT",""+lineHeight);
+            mSize = mSize-lineHeight > 0? mSize-lineHeight : 0;
 
-            mSize=Math.abs(mSize);
-            ascent=fm.ascent -= mSize/2;
-            descent=fm.descent += mSize/2;
+            Log.i("mSize",""+mSize);
+
+            ascent=fm.top -= mSize/2;
+            descent=fm.bottom += mSize/2;
         }
 
         fm.ascent=ascent;
