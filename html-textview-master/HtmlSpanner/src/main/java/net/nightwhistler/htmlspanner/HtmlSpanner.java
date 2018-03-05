@@ -71,7 +71,7 @@ public class HtmlSpanner {
      * Temporary constant for the width of 1 horizontal em
      * Used for calculating margins.
      */
-    public static final int HORIZONTAL_EM_WIDTH = 10;
+    public static final int HORIZONTAL_EM_WIDTH = 5;
 
 
     private Map<String, TagNodeHandler> handlers;
@@ -87,8 +87,6 @@ public class HtmlSpanner {
     private int textColor;
 
     private float textSize;
-
-    private int lineHeight;
 
     /**
      * Switch to determine if CSS is used
@@ -155,15 +153,14 @@ public class HtmlSpanner {
         htmlTagsDictionary.put("&Uacute;", "Ú");
         htmlTagsDictionary.put("<h1>","<h1 style=\"font-weight:bold\">");
         htmlTagsDictionary.put("<h2>","<h2 style=\"font-weight:bold\">");
-        htmlTagsDictionary.put("<ul>","<br><ul>");
     }
 
 
     /**
      * Creates a new HtmlSpanner using a default HtmlCleaner instance.
      */
-    public HtmlSpanner(int textColor,float textSize, int lineHeight) {
-        this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize,lineHeight);
+    public HtmlSpanner(int textColor,float textSize) {
+        this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize);
     }
 
     /**
@@ -173,14 +170,12 @@ public class HtmlSpanner {
      *
      * @param cleaner
      */
-    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize,int lineHeight) {
+    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize) {
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
         this.handlers = new HashMap<String, TagNodeHandler>();
         this.textColor=textColor;
         this.textSize=textSize;
-        Log.i("lineHeight",""+lineHeight);
-        this.lineHeight=lineHeight;
         registerBuiltInHandlers();
     }
 
@@ -210,10 +205,6 @@ public class HtmlSpanner {
 
     public float getTextSize() {
         return textSize;
-    }
-
-    public int getLineHeight() {
-        return lineHeight;
     }
 
     /**
@@ -307,7 +298,7 @@ public class HtmlSpanner {
                html=replaceHtmlTags(html);
             }
         }
-        Log.i("HTML",html);
+        Log.i("HTML_UPDATE",html);
         return fromTagNode(this.htmlCleaner.clean(html), null);
     }
 
@@ -483,8 +474,12 @@ public class HtmlSpanner {
                 new Style().setMarginLeft(new StyleValue(2.0f, StyleValue.Unit.EM)));
 
         registerHandler("blockquote", marginHandler);
-        registerHandler("ul", marginHandler);
-        registerHandler("ol", marginHandler);
+
+        TagNodeHandler listHandler = new StyledTextHandler(new Style()
+                        .setDisplayStyle(Style.DisplayStyle.BLOCK));
+
+        registerHandler("ul", listHandler);
+        registerHandler("ol", listHandler);
 
         TagNodeHandler monSpaceHandler = wrap(new MonoSpaceHandler());
 

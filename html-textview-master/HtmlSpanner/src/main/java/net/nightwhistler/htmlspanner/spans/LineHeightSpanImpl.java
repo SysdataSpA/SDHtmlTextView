@@ -15,15 +15,13 @@ public class LineHeightSpanImpl implements LineHeightSpan {
     //private final int value;
     private int mSize;
     private static float sProportion = 0;
-    private int lineHeight;
     private int ascent=0;
     private int descent=0;
 
 
-    public LineHeightSpanImpl(int value,int lineHeight) {
+    public LineHeightSpanImpl(int value) {
         //this.value = value;
         mSize=value;
-        this.lineHeight=lineHeight;
     }
 
     @Override
@@ -34,18 +32,28 @@ public class LineHeightSpanImpl implements LineHeightSpan {
         Log.i("fmDescent",""+fm.descent);
         Log.i("fmTop",""+fm.top);
         Log.i("fmBottom",""+fm.bottom);
+
         if(ascent==0&&descent==0){
 
-            mSize = mSize-lineHeight > 0? mSize-lineHeight : 0;
+            int top = Math.abs(fm.top)-Math.abs(fm.ascent);
+            int bottom= Math.abs(fm.bottom)-Math.abs(fm.descent);
+            int lineHeight = Math.abs(fm.ascent)-fm.descent;
+
+            mSize = mSize-lineHeight > 0 ? mSize-lineHeight : 0;
 
             Log.i("mSize",""+mSize);
 
             ascent=fm.top -= mSize/2;
             descent=fm.bottom += mSize/2;
+
+            fm.top -= top;
+            fm.bottom += bottom;
         }
 
-        fm.ascent=ascent;
-        fm.descent=descent;
+        if(mSize > 0) {
+            fm.ascent = ascent;
+            fm.descent = descent;
+        }
     }
 
 }

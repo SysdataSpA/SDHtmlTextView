@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
         int col=tv.getSolidColor();
         int fontHeight = tv.getPaint().getFontMetricsInt(null);
         Log.i("font height",""+fontHeight);
-        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize(),fontHeight);
+        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize());
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
         tv.setMovementMethod(LinkMovementMethod.getInstance());
