@@ -1,8 +1,10 @@
 package net.nightwhistler.htmlspanner.style;
 
+import android.content.res.Resources;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.*;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import net.nightwhistler.htmlspanner.FontFamily;
 import net.nightwhistler.htmlspanner.HtmlSpanner;
@@ -25,6 +27,8 @@ public class StyleCallback implements SpanCallback {
 
     private FontFamily defaultFont;
     private Style useStyle;
+
+    private static final float SCREEN_DENSITY=(Resources.getSystem().getDisplayMetrics().densityDpi)/ DisplayMetrics.DENSITY_DEFAULT;
 
     public StyleCallback( FontFamily defaultFont, Style style, int start, int end ) {
         this.defaultFont = defaultFont;
@@ -78,7 +82,7 @@ public class StyleCallback implements SpanCallback {
         //If there's a line height, we use an implementation of LineHeightSpan to draw space behind the text
         if ( useStyle.getLineHeight() != null) {
             //Log.d("StyleCallback", "Applying LineHeightSpan with value " + useStyle.getLineHeight().getIntValue() + " from " + start + " to " + end + " on text " + builder.subSequence(start, end));
-            builder.setSpan(new LineHeightSpanImpl(useStyle.getLineHeight().getIntValue()),start,end,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(new LineHeightSpanImpl((int)Math.ceil(useStyle.getLineHeight().getIntValue() * SCREEN_DENSITY)),start,end,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         //If there is a border, the BorderSpan will also draw the background colour if needed.
