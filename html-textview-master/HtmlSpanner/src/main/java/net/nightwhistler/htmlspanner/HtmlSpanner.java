@@ -71,7 +71,7 @@ public class HtmlSpanner {
      * Temporary constant for the width of 1 horizontal em
      * Used for calculating margins.
      */
-    public static final int HORIZONTAL_EM_WIDTH = 5;
+    public static final int HORIZONTAL_EM_WIDTH = 10;
 
 
     private Map<String, TagNodeHandler> handlers;
@@ -87,6 +87,8 @@ public class HtmlSpanner {
     private int textColor;
 
     private float textSize;
+
+    private boolean textAlignCenter;
 
     /**
      * Switch to determine if CSS is used
@@ -298,7 +300,7 @@ public class HtmlSpanner {
                html=replaceHtmlTags(html);
             }
         }
-        Log.i("HTML_UPDATE",html);
+        Log.i("HTML_UPDATE_1",html);
         return fromTagNode(this.htmlCleaner.clean(html), null);
     }
 

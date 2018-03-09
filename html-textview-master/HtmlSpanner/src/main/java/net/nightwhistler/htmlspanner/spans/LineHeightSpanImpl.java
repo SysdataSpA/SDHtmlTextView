@@ -33,26 +33,31 @@ public class LineHeightSpanImpl implements LineHeightSpan {
         Log.i("fmTop",""+fm.top);
         Log.i("fmBottom",""+fm.bottom);
 
-        if(ascent==0&&descent==0){
+        if (fm.descent > mSize) {
+            // Show as much descent as possible
+            fm.bottom = fm.descent = Math.min(mSize, fm.descent);
+            fm.top = fm.ascent = 0;
+        } else if (-fm.ascent + fm.descent > mSize) {
+            // Show all descent, and as much ascent as possible
+            fm.bottom = fm.descent;
+            fm.top = fm.ascent = -mSize + fm.descent;
+        } else if (-fm.ascent + fm.bottom > mSize) {
+            // Show all ascent, descent, as much bottom as possible
+            fm.top = fm.ascent;
+            fm.bottom = fm.ascent + mSize;
+        } else if (-fm.top + fm.bottom > mSize) {
+            // Show all ascent, descent, bottom, as much top as possible
+            fm.top = fm.bottom - mSize;
+        } else {
+            // Show proportionally additional ascent / top & descent / bottom
+            final int additional = mSize - (-fm.top + fm.bottom);
 
-            int top = Math.abs(fm.top)-Math.abs(fm.ascent);
-            int bottom= Math.abs(fm.bottom)-Math.abs(fm.descent);
-            int lineHeight = Math.abs(fm.ascent)-fm.descent;
-
-            mSize = mSize-lineHeight > 0 ? mSize-lineHeight : 0;
-
-            Log.i("mSize",""+mSize);
-
-            ascent=fm.top -= mSize/2;
-            descent=fm.bottom += mSize/2;
-
-            fm.top -= top;
-            fm.bottom += bottom;
-        }
-
-        if(mSize > 0) {
-            fm.ascent = ascent;
-            fm.descent = descent;
+            // Round up for the negative values and down for the positive values  (arbritary choice)
+            // So that bottom - top equals additional even if it's an odd number.
+            fm.top -= Math.ceil(additional / 2.0f);
+            fm.bottom += Math.floor(additional / 2.0f);
+            fm.ascent = fm.top;
+            fm.descent = fm.bottom;
         }
     }
 
