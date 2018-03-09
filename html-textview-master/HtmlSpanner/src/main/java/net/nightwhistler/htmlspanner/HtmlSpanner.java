@@ -88,6 +88,8 @@ public class HtmlSpanner {
 
     private float textSize;
 
+    private boolean textAlignCenter;
+
     /**
      * Switch to determine if CSS is used
      */
@@ -153,7 +155,6 @@ public class HtmlSpanner {
         htmlTagsDictionary.put("&Uacute;", "Ú");
         htmlTagsDictionary.put("<h1>","<h1 style=\"font-weight:bold\">");
         htmlTagsDictionary.put("<h2>","<h2 style=\"font-weight:bold\">");
-        htmlTagsDictionary.put("<ul>","<br><ul>");
     }
 
 
@@ -202,6 +203,10 @@ public class HtmlSpanner {
 
     public void setTextSize(float textSize) {
         this.textSize = textSize;
+    }
+
+    public float getTextSize() {
+        return textSize;
     }
 
     /**
@@ -295,7 +300,7 @@ public class HtmlSpanner {
                html=replaceHtmlTags(html);
             }
         }
-        Log.i("HTML",html);
+        Log.i("HTML_UPDATE_1",html);
         return fromTagNode(this.htmlCleaner.clean(html), null);
     }
 
@@ -471,8 +476,12 @@ public class HtmlSpanner {
                 new Style().setMarginLeft(new StyleValue(2.0f, StyleValue.Unit.EM)));
 
         registerHandler("blockquote", marginHandler);
-        registerHandler("ul", marginHandler);
-        registerHandler("ol", marginHandler);
+
+        TagNodeHandler listHandler = new StyledTextHandler(new Style()
+                        .setDisplayStyle(Style.DisplayStyle.BLOCK));
+
+        registerHandler("ul", listHandler);
+        registerHandler("ol", listHandler);
 
         TagNodeHandler monSpaceHandler = wrap(new MonoSpaceHandler());
 

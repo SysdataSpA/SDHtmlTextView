@@ -18,9 +18,13 @@ package org.sufficientlysecure.htmltextview.example;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import net.nightwhistler.htmlspanner.HtmlSpanner;
@@ -40,6 +44,8 @@ public class MainActivity extends Activity {
         String html=loadStringFromAssetFile(this,"example.html");
         TextView tv = (TextView) findViewById(R.id.twxt);
         int col=tv.getSolidColor();
+        int fontHeight = tv.getPaint().getFontMetricsInt(null);
+        Log.i("font height",""+fontHeight);
         HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getTextColors().getDefaultColor(),tv.getTextSize());
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
