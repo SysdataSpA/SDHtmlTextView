@@ -52,9 +52,9 @@ public class ListItemSpan implements LeadingMarginSpan {
 
     public int getLeadingMargin(boolean first) {
         if (mNumber != -1) {
-            return 2 * NUMBER_RADIUS + STANDARD_GAP_WIDTH;
+            return 2 * (NUMBER_RADIUS + STANDARD_GAP_WIDTH);
         } else {
-            return 2 * BULLET_RADIUS + STANDARD_GAP_WIDTH;
+            return 2 * (BULLET_RADIUS + STANDARD_GAP_WIDTH);
         }
     }
 
