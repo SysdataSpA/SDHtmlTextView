@@ -64,6 +64,19 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``text-decoration`` only underline and line-through 
 
 ## Usage
+
+**Add the library as a dependency**
+
+1. in **Project level `build.gradle`** add those repositories
+```gradle
+   maven { url  'https://dl.bintray.com/sysdata/maven' }
+   mavenCentral()
+   maven { url 'http://repo.pageturner-reader.org' }
+```
+2. in your **App level `build.gradle`** add this dependecy
+```gradle
+    implementation 'it.sysdata.mobile:HtmlSpanner:1.0.0'
+```
 In the xml layout file define a simple TextView then in the Activity do
 
 ```java
