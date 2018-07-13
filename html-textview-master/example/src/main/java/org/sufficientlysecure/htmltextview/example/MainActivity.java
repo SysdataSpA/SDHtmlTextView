@@ -18,16 +18,12 @@ package org.sufficientlysecure.htmltextview.example;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.Layout;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.TextView;
 
-import net.nightwhistler.htmlspanner.HtmlSpanner;
+import com.sysdata.htmlspanner.HtmlSpanner;
 
 import java.io.IOException;
 import java.io.InputStream;

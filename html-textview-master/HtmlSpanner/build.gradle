@@ -1,15 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.artifactory-upload'
+apply plugin: 'com.github.dcendents.android-maven'
+
+// This is the library version used when deploying the artifact
+version = "1.0.0"
+
+group = "it.sysdata.mobile"
+
 buildscript {
-    repositories {
-        mavenCentral()
-    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        repositories {
+            google()
+            mavenCentral()
+            // serve per org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+        // artifactory
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1'
+        // bintray
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
     }
 }
 
-apply plugin: 'com.android.library'
-
 repositories {
+    google()
     mavenCentral()
     maven {
         url "http://repo.pageturner-reader.org"
@@ -17,15 +35,14 @@ repositories {
 }
 
 dependencies {
-    compile 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
-    compile 'com.osbcp.cssparser:cssparser:1.5'
-    compile 'io.reactivex:rxjava:1.2.10'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
+    implementation 'com.osbcp.cssparser:cssparser:1.5'
+    implementation 'io.reactivex:rxjava:1.2.10'
+    implementation 'io.reactivex:rxandroid:1.2.1'
 }
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.0"
 
     defaultConfig {
         minSdkVersion 9
@@ -38,6 +55,30 @@ android {
          abortOnError false
     }
 }
+
+// pubblicazione maven
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+ext {
+    // GROUP_ID
+    publishedGroupId = group
+    // ARTIFACT_ID
+    artifact = 'sdhtmltextview'
+    // VERSION_ID
+    libraryVersion = version
+
+    developerId = 'sysdata-mobile'
+    developerName = ''
+    developerEmail = 'team.mobile@sysdata.it'
+
+    bintrayRepo = 'maven'
+    bintrayName = 'sdHtmlTextView'
+    libraryName = 'sdhtmltextview'
+    bintrayOrganization = 'sysdata'
+}
+
+//apply from: 'publishArtifactory.gradle'
+apply from: 'publishBintray.gradle'
 
 //apply plugin: 'sonar-runner'
 //
