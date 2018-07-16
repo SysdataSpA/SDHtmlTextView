@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.jfrog.artifactory-upload'
 apply plugin: 'com.github.dcendents.android-maven'
 
@@ -34,27 +35,37 @@ repositories {
     }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
-    implementation 'com.osbcp.cssparser:cssparser:1.5'
-    implementation 'io.reactivex:rxjava:1.2.10'
-    implementation 'io.reactivex:rxandroid:1.2.1'
-}
-
 android {
-    compileSdkVersion 21
+    compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 21
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
-android {
-    lintOptions {
-         abortOnError false
-    }
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    api project(':htmlspanner')
 }
 
 // pubblicazione maven
@@ -80,4 +91,3 @@ ext {
 
 //apply from: 'publishArtifactory.gradle'
 apply from: 'publishBintray.gradle'
-
