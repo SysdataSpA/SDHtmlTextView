@@ -64,6 +64,22 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``text-decoration`` only underline and line-through 
 
 ## Usage
+
+1. **Add the library as a dependency**
+
+1.1 in **Project level `build.gradle`** add those repositories
+```gradle
+   maven { url  'https://dl.bintray.com/sysdata/maven' }
+   mavenCentral()
+   maven { url 'http://repo.pageturner-reader.org' }
+```
+1.2 in your **App level `build.gradle`** add this dependecy
+```gradle
+    implementation 'it.sysdata.mobile:htmlspanner:1.0.0'
+```
+
+1.3 Use HtmlSpanner in your TextView :
+
 In the xml layout file define a simple TextView then in the Activity do
 
 ```java
@@ -78,8 +94,36 @@ If you want to handle href you need to add
 ```java
         tv.setMovementMethod(LinkMovementMethod.getInstance());
 ```
+You can also use an **SDHtmlTextView** instead of text view :
 
+1. **Add the library as a dependency**
 
+1.1 in **Project level `build.gradle`** add those repositories
+```gradle
+   maven { url  'https://dl.bintray.com/sysdata/maven' }
+   mavenCentral()
+   maven { url 'http://repo.pageturner-reader.org' }
+```
+1.2 in your **App level `build.gradle`** add this dependecy
+```gradle
+    implementation 'it.sysdata.mobile:htmltextview:1.0.0'
+```
+1.3 add the SDHtmlTextView via xml and then in your code set the html
+
+**kotlin:**
+
+```java
+        String html=loadStringFromAssetFile(this,"example.html")
+        htmlTextView.htmlText = html
+```
+
+**java:**
+
+```java
+        String html=loadStringFromAssetFile(this,"example.html");
+        SDHtmlTextView htmlTextView = (SDHtmlTextView) findViewById(R.id.text);
+        htmlTextView.setHtmlText(html);
+```
 
 ## License
 Copyright (C) 2017 Sysdata S.p.A.
