@@ -70,12 +70,13 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 1.1 in **Project level `build.gradle`** add those repositories
 ```gradle
    maven { url  'https://dl.bintray.com/sysdata/maven' }
-   mavenCentral()
    maven { url 'http://repo.pageturner-reader.org' }
+   mavenCentral()
 ```
 1.2 in your **App level `build.gradle`** add this dependecy
 ```gradle
     implementation 'it.sysdata.mobile:htmlspanner:1.0.0'
+    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
 ```
 
 1.3 Use HtmlSpanner in your TextView :
@@ -86,7 +87,7 @@ In the xml layout file define a simple TextView then in the Activity do
         String html=loadStringFromAssetFile(this,"example.html");
         TextView tv = (TextView) findViewById(R.id.text);
         int col=tv.getSolidColor();
-        HtmlSpanner htmlSpanner=new HtmlSpanner();
+        HtmlSpanner htmlSpanner=new HtmlSpanner(tv.getCurrentTextColor(), tv.getTextSize());
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
 ```
@@ -101,12 +102,13 @@ You can also use an **SDHtmlTextView** instead of text view :
 1.1 in **Project level `build.gradle`** add those repositories
 ```gradle
    maven { url  'https://dl.bintray.com/sysdata/maven' }
-   mavenCentral()
    maven { url 'http://repo.pageturner-reader.org' }
+   mavenCentral()
 ```
 1.2 in your **App level `build.gradle`** add this dependecy
 ```gradle
     implementation 'it.sysdata.mobile:htmltextview:1.0.0'
+    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
 ```
 1.3 add the SDHtmlTextView via xml and then in your code set the html
 
