@@ -16,6 +16,7 @@
 
 package com.sysdata.htmlspanner;
 
+import android.graphics.Paint;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -72,6 +73,9 @@ public class HtmlSpanner {
      * Used for calculating margins.
      */
     public static final int HORIZONTAL_EM_WIDTH = 10;
+    public static int NUMBER_WIDTH = 5;
+    public static int BULLET_WIDTH = 3;
+    public static int BLANK_WIDTH = 10;
 
 
     private Map<String, TagNodeHandler> handlers;
@@ -163,6 +167,11 @@ public class HtmlSpanner {
      */
     public HtmlSpanner(int textColor,float textSize) {
         this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize);
+        Paint paint = new Paint();
+        paint.setTextSize(textSize);
+        NUMBER_WIDTH = Math.round(paint.measureText("4."));
+        BULLET_WIDTH = Math.round(paint.measureText("\u2022"));
+        BLANK_WIDTH = Math.round(paint.measureText(" "));
     }
 
     /**

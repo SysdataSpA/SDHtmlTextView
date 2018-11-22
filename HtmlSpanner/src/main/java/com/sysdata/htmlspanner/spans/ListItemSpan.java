@@ -16,10 +16,12 @@
 
 package com.sysdata.htmlspanner.spans;
 
+import android.app.Notification;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.Layout;
 import android.text.Spanned;
+import android.text.style.BulletSpan;
 import android.text.style.LeadingMarginSpan;
 import com.sysdata.htmlspanner.HtmlSpanner;
 
@@ -36,11 +38,11 @@ import com.sysdata.htmlspanner.HtmlSpanner;
 public class ListItemSpan implements LeadingMarginSpan {
     private final int mNumber;
 
-    private static final int BULLET_RADIUS = 3;
-    private static final int NUMBER_RADIUS = 5;
+    private static final int BULLET_RADIUS = HtmlSpanner.BULLET_WIDTH;
+    private static final int NUMBER_RADIUS = HtmlSpanner.NUMBER_WIDTH;
 
     //Gap should be about 1em
-    public static final int STANDARD_GAP_WIDTH = HtmlSpanner.HORIZONTAL_EM_WIDTH;
+    public static final int STANDARD_GAP_WIDTH = HtmlSpanner.BLANK_WIDTH;
 
     public ListItemSpan() {
         mNumber = -1;
@@ -52,9 +54,9 @@ public class ListItemSpan implements LeadingMarginSpan {
 
     public int getLeadingMargin(boolean first) {
         if (mNumber != -1) {
-            return 2 * (NUMBER_RADIUS + STANDARD_GAP_WIDTH);
+            return (NUMBER_RADIUS + STANDARD_GAP_WIDTH);
         } else {
-            return 2 * (BULLET_RADIUS + STANDARD_GAP_WIDTH);
+            return (BULLET_RADIUS + STANDARD_GAP_WIDTH);
         }
     }
 
