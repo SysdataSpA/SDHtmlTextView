@@ -167,11 +167,6 @@ public class HtmlSpanner {
      */
     public HtmlSpanner(int textColor,float textSize) {
         this(createHtmlCleaner(), new SystemFontResolver(),textColor,textSize);
-        Paint paint = new Paint();
-        paint.setTextSize(textSize);
-        NUMBER_WIDTH = Math.round(paint.measureText("4."));
-        BULLET_WIDTH = Math.round(paint.measureText("\u2022"));
-        BLANK_WIDTH = Math.round(paint.measureText(" "));
     }
 
     /**
@@ -184,9 +179,15 @@ public class HtmlSpanner {
     public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize) {
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
-        this.handlers = new HashMap<String, TagNodeHandler>();
+        this.handlers = new HashMap<>();
         this.textColor=textColor;
         this.textSize=textSize;
+        Paint paint = new Paint();
+        paint.setTextSize(textSize);
+        NUMBER_WIDTH = Math.round(paint.measureText("4."));
+        if(NUMBER_WIDTH <= 0)
+        BULLET_WIDTH = Math.round(paint.measureText("\u2022"));
+        BLANK_WIDTH = Math.round(paint.measureText(" "));
         registerBuiltInHandlers();
     }
 
