@@ -86,8 +86,6 @@ public class BorderSpan implements LineBackgroundSpan {
         p.setStrokeWidth( strokeWidth );
         right -= strokeWidth;
 
-        p.setStyle(Paint.Style.STROKE);
-
         if ( start <= this.start ) {
             Log.d("BorderSpan", "Drawing first line");
             c.drawLine(left, top, right, top, p);
