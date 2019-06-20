@@ -185,7 +185,6 @@ public class HtmlSpanner {
         Paint paint = new Paint();
         paint.setTextSize(textSize);
         NUMBER_WIDTH = Math.round(paint.measureText("4."));
-        if(NUMBER_WIDTH <= 0)
         BULLET_WIDTH = Math.round(paint.measureText("\u2022"));
         BLANK_WIDTH = Math.round(paint.measureText(" "));
         registerBuiltInHandlers();

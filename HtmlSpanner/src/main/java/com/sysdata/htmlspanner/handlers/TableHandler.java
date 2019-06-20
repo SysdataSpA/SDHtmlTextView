@@ -199,8 +199,8 @@ public class TableHandler extends TagNodeHandler {
 					drawable.getIntrinsicHeight());
 
 			int index = i == 0 ? start : builder.length() - 1;
-			builder.setSpan(new ImageSpan(drawable), index, builder.length(),Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 			builder.append("\n");
+			builder.setSpan(new ImageSpan(drawable), index, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 
         /*
@@ -222,8 +222,6 @@ public class TableHandler extends TagNodeHandler {
                 return Alignment.ALIGN_CENTER;
             }
         }, start, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        builder.append("\n");
 	}
 
 	/**
