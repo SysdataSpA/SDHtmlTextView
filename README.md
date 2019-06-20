@@ -64,22 +64,23 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 * ``text-decoration`` only underline and line-through 
 
 ## Usage
+1.￼ If you already have an implementation of TextView you could simply use HtmlSpanner, that wrap only the html code and convert it to a spannable string.
 
-1. **Add the library as a dependency**
+1.1. **Add the library as a dependency**
 
-1.1 in **Project level `build.gradle`** add those repositories
+1.1.1 in **Project level `build.gradle`** add those repositories
 ```gradle
    maven { url  'https://dl.bintray.com/sysdata/maven' }
    maven { url 'http://repo.pageturner-reader.org' }
    mavenCentral()
 ```
-1.2 in your **App level `build.gradle`** add this dependecy
+1.1.2 in your **App level `build.gradle`** add this dependecy
 ```gradle
     implementation 'it.sysdata.mobile:htmlspanner:1.0.0'
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
 ```
 
-1.3 Use HtmlSpanner in your TextView :
+1.2 Use HtmlSpanner in your TextView :
 
 In the xml layout file define a simple TextView then in the Activity do
 
@@ -91,26 +92,28 @@ In the xml layout file define a simple TextView then in the Activity do
         htmlSpanner.setBackgroundColor(col);
         tv.setText(htmlSpanner.fromHtml(html));
 ```
+
 If you want to handle href you need to add
 ```java
         tv.setMovementMethod(LinkMovementMethod.getInstance());
 ```
-You can also use an **SDHtmlTextView** instead of text view :
 
-1. **Add the library as a dependency**
+2.￼ Alternatively you can use an **SDHtmlTextView** which is a custom TextView that integrates HtmlSpanner to handle html texts :
 
-1.1 in **Project level `build.gradle`** add those repositories
+2.1 **Add the library as a dependency**
+
+2.1.1 in **Project level `build.gradle`** add those repositories
 ```gradle
    maven { url  'https://dl.bintray.com/sysdata/maven' }
    maven { url 'http://repo.pageturner-reader.org' }
    mavenCentral()
 ```
-1.2 in your **App level `build.gradle`** add this dependecy
+2.1.2 in your **App level `build.gradle`** add this dependecy
 ```gradle
     implementation 'it.sysdata.mobile:htmltextview:1.0.0'
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
 ```
-1.3 add the SDHtmlTextView via xml and then in your code set the html
+2.2 add the SDHtmlTextView via xml and then in your code set the html
 
 **kotlin:**
 
