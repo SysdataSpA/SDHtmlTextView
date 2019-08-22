@@ -9,19 +9,69 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView.htmlText="<div style=\"background-color: #272822\"><span style=\"color: #272822\">_</span><span style=\"color: #f8f8f2\">SDRootValidatorConfig</span> <span style=\"color: #f8f8f2\">config</span> <span style=\"color: #f92672\">=</span> <span style=\"color: #f8f8f2\">SDRootValidatorConfig</span>\n<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">newBuilder</span><span style=\"color: #f92672\">(</span><span style=\"color: #f8f8f2\">getContext</span><span style=\"color: #f92672\">())</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">isRootCheckEnabled</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForBinaryBusybox</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForBinarySu</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForDangerousProps</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForMagiskBinary</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForRootNative</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkForRWPaths</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">checkSuExists</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">detectPotentiallyDangerousApps</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">detectRootManagementApps</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">detectTestKeys</span><span style=\"color: #f92672\">(</span><span style=\"color: #66d9ef\">true</span><span style=\"color: #f92672\">)</span>\n" +
-                "<span style=\"color: #272822\">_</span><span style=\"color: #f92672\">.</span><span style=\"color: #a6e22e\">build</span><span style=\"color: #f92672\">();</span>\n" +
-                "</div>\n"
+        textView.htmlText="<table border = \"1\">" +
+                "<tr>" +
+                "<th>Firstname</th>" +
+                "<th>Lastname</th> " +
+                "<th>Age</th>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Jill</td>" +
+                "<td>Smith</td>" +
+                "<td>50</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Eve</td>" +
+                "<td>Jackson</td>" +
+                "<td>94</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>John</td>" +
+                "<td>Doe</td>" +
+                "<td>80</td>" +
+                "</tr>" +
+                "</table>" +
+                "<ul>" +
+                "  <li>Coffee</li>" +
+                "  <li>Tea</li>" +
+                "  <li>Milk</li>" +
+                "</ul>" +
+                "<table>" +
+                "<tr>" +
+                "<th>Firstname</th>" +
+                "<th>Lastname</th> " +
+                "<th>Age</th>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Jill</td>" +
+                "<td>Smith</td>" +
+                "<td>50</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Eve</td>" +
+                "<td>Jackson</td>" +
+                "<td>94</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>John</td>" +
+                "<td>Doe</td>" +
+                "<td>80</td>" +
+                "</tr>" +
+                "</table>" +
+                "<h1>The line-height Property</h1>" +
+                "<h2>line-height: normal (default):</h2>" +
+                "<div>This is a paragraph with a standard line-height.<br>" +
+                "The standard line height in most browsers is about 110% to 120%.</div>" +
+                "<h2>line-height: 1.6 (recommended):</h2>" +
+                "<div style=\"line-height: 1.6 em\">This is a paragraph with the recommended line-height.<br>" +
+                "The line height is here set to 1.6. This is a unitless value;<br>" +
+                "meaning that the line height will be relative to the font size.</div>" +
+                "<h2>line-height: 80%:</h2>" +
+                "<div style=\"line-height: 80 %;\">This is a paragraph with a smaller line-height.<br>" +
+                "The line height is here set to 80%.</div>" +
+                "<h2>line-height: 50 px:</h2>" +
+                "<div style=\"line-height: 50 px;\">" +
+                "This is a paragraph with a bigger line-height.<br>" +
+                "The line height is here set to 200%.</div>"
     }
 }
