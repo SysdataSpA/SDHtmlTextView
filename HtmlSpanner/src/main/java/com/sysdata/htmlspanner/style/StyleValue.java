@@ -24,10 +24,13 @@ public class StyleValue {
             return new StyleValue(0f, Unit.EM);
         }
 
+        // removing extra spaces
+        value = value.replaceAll("\\s+","");
+
         if ( value.endsWith("px") ) {
 
             try {
-                final Integer intValue = Integer.parseInt( value.substring(0, value.length() -2) );
+                final int intValue = Integer.parseInt( value.substring(0, value.length() -2) );
                 return new StyleValue(intValue);
             } catch (NumberFormatException nfe ) {
                 Log.e("StyleValue", "Can't parse value: " + value );

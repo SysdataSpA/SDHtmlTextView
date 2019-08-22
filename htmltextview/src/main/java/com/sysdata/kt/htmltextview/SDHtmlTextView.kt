@@ -14,7 +14,7 @@ class SDHtmlTextView: TextView {
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
 
-    private var htmlSpanner: HtmlSpanner = HtmlSpanner(textColors.defaultColor, textSize)
+    private var htmlSpanner: HtmlSpanner
 
     var htmlText:String? = null
     set(value) {
@@ -23,7 +23,11 @@ class SDHtmlTextView: TextView {
 
     init {
         this.movementMethod = LinkMovementMethod.getInstance()
-        htmlSpanner.setBackgroundColor(solidColor)
+        htmlSpanner = HtmlSpanner.Builder()
+                .textColor(textColors.defaultColor)
+                .textSize(textSize)
+                .backgroundColor(solidColor)
+                .build()
     }
 
 }

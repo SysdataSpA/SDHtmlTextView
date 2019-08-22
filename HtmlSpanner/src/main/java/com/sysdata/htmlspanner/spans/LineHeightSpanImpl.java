@@ -4,22 +4,32 @@ import android.graphics.Paint;
 import android.text.style.LineHeightSpan;
 import android.util.Log;
 
+import com.sysdata.htmlspanner.style.StyleValue;
+
 /**
  * Created by Salvatore on 06/12/2017.
  */
 
 public class LineHeightSpanImpl implements LineHeightSpan {
 
-    //private final int value;
     private int mSize;
-    private static float sProportion = 0;
-    private int ascent=0;
-    private int descent=0;
 
 
     public LineHeightSpanImpl(int value) {
-        //this.value = value;
         mSize=value;
+    }
+
+    public LineHeightSpanImpl(float value, StyleValue.Unit unit, Float textSize){
+        switch (unit){
+            case PX:
+                mSize = (int) value;
+                break;
+            case PERCENTAGE:
+            case EM:
+                if(textSize != null && textSize > 0){
+                    mSize = (int) (textSize * value);
+                }
+        }
     }
 
     @Override
