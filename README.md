@@ -98,6 +98,23 @@ If you want to handle href you need to add
         tv.setMovementMethod(LinkMovementMethod.getInstance());
 ```
 
+You can alternatively use a builder to initialize the HtmlSpanner
+
+```java
+        HtmlSpanner htmlSpanner = new HtmlSpanner.Builder()
+                                    .textColor(tv.getCurrentTextColor())
+                                    .textSize(tv.getTextSize())
+                                    .backgroundColor(tv.getSolidColor())
+                                    .tableHeaderCenter(isTableHeaderCentered)
+                                    .build();
+```
+
+the builder possible parameters are:
+- textColor, this attribute is required since is used to initialize the htmlspanner with a custom text color;
+- textSize, this attribute is required since is used to initialize the htmlspanner with a custom text size;
+- backgroundColor, this attribute is required since is used to initialize the htmlspanner with a custom background color to handle html tags like "div" correctly;
+- tableHeaderCenter, if this attribute is set to false or true it will define the centering of the table header fields in tables, by default table header is centered.
+
 2.￼ Alternatively you can use an **SDHtmlTextView** which is a custom TextView that integrates HtmlSpanner to handle html texts :
 
 2.1 **Add the library as a dependency**
@@ -117,7 +134,7 @@ If you want to handle href you need to add
 
 **kotlin:**
 
-```java
+```kotlin
         String html=loadStringFromAssetFile(this,"example.html")
         htmlTextView.htmlText = html
 ```
@@ -128,6 +145,29 @@ If you want to handle href you need to add
         String html=loadStringFromAssetFile(this,"example.html");
         SDHtmlTextView htmlTextView = (SDHtmlTextView) findViewById(R.id.text);
         htmlTextView.setHtmlText(html);
+```
+2.3 if you want to override html table header centering behaviour you need to add this attribute "tableHeaderCentered" you can add via xml
+
+```xml
+    <com.sysdata.kt.htmltextview.SDHtmlTextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tableHeaderCentered="false"/>
+```
+
+or in the code in this way
+
+**kotlin:**
+
+```kotlin
+        textView.isTableHeaderCentered = false
+```
+
+**java:**
+
+```java
+        textView.setTableHeaderCentered(false)
 ```
 
 ## License
