@@ -85,9 +85,16 @@ public class StyleCallback implements SpanCallback {
         }
 
         //If there's a line height, we use an implementation of LineHeightSpan to draw space behind the text
-        if ( useStyle.getLineHeight() != null) {
+        if (useStyle.getLineHeight() != null) {
             //Log.d("StyleCallback", "Applying LineHeightSpan with value " + useStyle.getLineHeight().getIntValue() + " from " + start + " to " + end + " on text " + builder.subSequence(start, end));
-            builder.setSpan(new LineHeightSpanImpl((int)Math.ceil(useStyle.getLineHeight().getIntValue() * SCREEN_DENSITY)),start,end,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            StyleValue lineHeight = useStyle.getLineHeight();
+            LineHeightSpanImpl span;
+            if(lineHeight.getUnit() == StyleValue.Unit.PX){
+                span = new LineHeightSpanImpl((int) Math.ceil(lineHeight.getIntValue() * SCREEN_DENSITY));
+            } else {
+                span = new LineHeightSpanImpl(lineHeight.getFloatValue(), lineHeight.getUnit(), spanner.getTextSize());
+            }
+            builder.setSpan(span,start,end,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         //If there is a border, the BorderSpan will also draw the background colour if needed.

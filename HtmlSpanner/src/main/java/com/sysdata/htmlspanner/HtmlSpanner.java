@@ -92,7 +92,10 @@ public class HtmlSpanner {
 
     private float textSize;
 
-    private boolean textAlignCenter;
+    /**
+     * This parameter is used to modify table header text centering, by default is true
+     */
+    private Boolean tableHeaderCenter = null;
 
     /**
      * Switch to determine if CSS is used
@@ -177,18 +180,35 @@ public class HtmlSpanner {
      * @param cleaner
      */
     public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver,int textColor, float textSize) {
+        initBaseComponents(cleaner, fontResolver);
+        setTextColor(textColor);
+        setTextSize(textSize);
+        calculateBaseDimensions(textSize);
+        registerBuiltInHandlers();
+    }
+
+    private HtmlSpanner(Builder builder) {
+        initBaseComponents(createHtmlCleaner(), new SystemFontResolver());
+        setTextColor(builder.textColor);
+        setTextSize(builder.textSize);
+        setBackgroundColor(builder.backgroundColor);
+        this.tableHeaderCenter = builder.tableHeaderCenter;
+        calculateBaseDimensions(textSize);
+        registerBuiltInHandlers();
+    }
+
+    private void initBaseComponents(HtmlCleaner cleaner, FontResolver fontResolver) {
+        this.handlers = new HashMap<>();
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
-        this.handlers = new HashMap<>();
-        this.textColor=textColor;
-        this.textSize=textSize;
+    }
+
+    private void calculateBaseDimensions(float textSize) {
         Paint paint = new Paint();
         paint.setTextSize(textSize);
         NUMBER_WIDTH = Math.round(paint.measureText("4."));
-        if(NUMBER_WIDTH <= 0)
         BULLET_WIDTH = Math.round(paint.measureText("\u2022"));
         BLANK_WIDTH = Math.round(paint.measureText(" "));
-        registerBuiltInHandlers();
     }
 
     public FontResolver getFontResolver() {
@@ -217,6 +237,10 @@ public class HtmlSpanner {
 
     public float getTextSize() {
         return textSize;
+    }
+
+    public void setTableHeaderCentered(boolean tableHeaderCenter) {
+        this.tableHeaderCenter = tableHeaderCenter;
     }
 
     /**
@@ -543,6 +567,9 @@ public class HtmlSpanner {
         TableHandler tableHandler=new TableHandler();
         tableHandler.setTextSize(textSize * 0.83f);
         tableHandler.setTextColor(textColor);
+        if(tableHeaderCenter != null){
+            tableHandler.setHeaderCentered(tableHeaderCenter);
+        }
         registerHandler("table",tableHandler);
 
         registerHandler("h1", wrap(new HeaderHandler(2f, 0.5f)));
@@ -602,4 +629,60 @@ public class HtmlSpanner {
         boolean isCancelled();
     }
 
+    /**
+     * Builder class for {@link HtmlSpanner}
+     */
+    public static final class Builder {
+        private int backgroundColor;
+        private int textColor;
+        private float textSize;
+        private Boolean tableHeaderCenter = null;
+
+        public Builder() {
+        }
+
+        /**
+         * Set the background color, used for paragraphs and div
+         * @param value the backgournd color as int
+         * @return
+         */
+        public Builder backgroundColor(int value) {
+            backgroundColor = value;
+            return this;
+        }
+
+        /**
+         * Set the text color
+         * @param value the text color as int
+         * @return
+         */
+        public Builder textColor(int value) {
+            textColor = value;
+            return this;
+        }
+
+        /**
+         * Set the text size
+         * @param value the text size
+         * @return
+         */
+        public Builder textSize(float value) {
+            textSize = value;
+            return this;
+        }
+
+        /**
+         * use this method if you want to manage the table header text centering, by default is set to true
+         * @param value
+         * @return
+         */
+        public Builder tableHeaderCenter(boolean value) {
+            tableHeaderCenter = value;
+            return this;
+        }
+
+        public HtmlSpanner build() {
+            return new HtmlSpanner(this);
+        }
+    }
 }

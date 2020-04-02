@@ -109,11 +109,8 @@ public class StyledTextHandler extends TagNodeHandler {
 
         //If we have a line height attribute, we apply it to the element
         if (useStyle.getLineHeight() != null && useStyle.getBackgroundColor()==null){
-            StyleValue styleValue = useStyle.getLineHeight();
-            if ( styleValue.getIntValue() > 0 ) {
-                stack.pushSpan(new StyleCallback(getSpanner().getFontResolver()
-                        .getDefaultFont(),useStyle,start,builder.length()));
-            }
+            stack.pushSpan(new StyleCallback(getSpanner().getFontResolver()
+                    .getDefaultFont(),useStyle,start,builder.length()));
         }
 
         if ( builder.length() > start ) {

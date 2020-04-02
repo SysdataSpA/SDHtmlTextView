@@ -54,6 +54,16 @@ public class TableHandler extends TagNodeHandler {
 
 	private static final int PADDING = 5;
 	private boolean hasHeader;
+	private boolean isHeaderCentered = true;
+
+	/**
+	 * Set if the header text has to be centered, by default is true
+	 *
+	 * @param headerCentered
+	 */
+	public void setHeaderCentered(boolean headerCentered) {
+		isHeaderCentered = headerCentered;
+	}
 
 	/**
 	 * Sets how wide the table should be.
@@ -117,7 +127,7 @@ public class TableHandler extends TagNodeHandler {
             }
 
 			if (tagNode.getName().equals("th")) {
-				hasHeader = true;
+				hasHeader = isHeaderCentered;
 				Spanned result = this.getSpanner().fromTagNode(tagNode, null);
 				table.addCell(result);
 				return;
@@ -199,8 +209,8 @@ public class TableHandler extends TagNodeHandler {
 					drawable.getIntrinsicHeight());
 
 			int index = i == 0 ? start : builder.length() - 1;
-			builder.setSpan(new ImageSpan(drawable), index, builder.length(),Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 			builder.append("\n");
+			builder.setSpan(new ImageSpan(drawable), index, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 
         /*
@@ -222,8 +232,6 @@ public class TableHandler extends TagNodeHandler {
                 return Alignment.ALIGN_CENTER;
             }
         }, start, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        builder.append("\n");
 	}
 
 	/**
