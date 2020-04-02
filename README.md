@@ -76,7 +76,7 @@ SDHtmlTextView use HTMLSpanner to display properly in TextViews an html page, ov
 ```
 1.1.2 in your **App level `build.gradle`** add this dependecy
 ```gradle
-    implementation 'it.sysdata.mobile:htmlspanner:1.0.1'
+    implementation 'it.sysdata.mobile:htmlspanner:1.0.2'
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.16'
 ```
 
