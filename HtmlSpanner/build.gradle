@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.artifactory-upload'
 apply plugin: 'com.github.dcendents.android-maven'
 
 // This is the library version used when deploying the artifact
-version = "1.0.0"
+version = "1.0.2"
 
 group = "it.sysdata.mobile"
 
@@ -64,7 +64,7 @@ ext {
     // GROUP_ID
     publishedGroupId = group
     // ARTIFACT_ID
-    artifact = 'sdhtmltextview'
+    artifact = 'htmlspanner'
     // VERSION_ID
     libraryVersion = version
 
@@ -73,8 +73,8 @@ ext {
     developerEmail = 'team.mobile@sysdata.it'
 
     bintrayRepo = 'maven'
-    bintrayName = 'sdHtmlTextView'
-    libraryName = 'sdhtmltextview'
+    bintrayName = 'sdHtmlSpanner'
+    libraryName = 'htmlspanner'
     bintrayOrganization = 'sysdata'
 }
 
