@@ -511,8 +511,8 @@ public class HtmlSpanner {
 
         registerHandler("blockquote", marginHandler);
 
-        TagNodeHandler listHandler = new StyledTextHandler(new Style()
-                        .setDisplayStyle(Style.DisplayStyle.BLOCK));
+        TagNodeHandler listHandler = new BorderAttributeHandler(wrap(new StyledTextHandler(new Style()
+                        .setDisplayStyle(Style.DisplayStyle.BLOCK))));
 
         registerHandler("ul", listHandler);
         registerHandler("ol", listHandler);
