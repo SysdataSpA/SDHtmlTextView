@@ -18,7 +18,9 @@ package com.sysdata.htmlspanner.handlers;
 
 import com.sysdata.htmlspanner.SpanStack;
 import com.sysdata.htmlspanner.TagNodeHandler;
+import com.sysdata.htmlspanner.handlers.attributes.WrappingStyleHandler;
 import com.sysdata.htmlspanner.spans.ListItemSpan;
+import com.sysdata.htmlspanner.style.Style;
 
 import org.htmlcleaner.TagNode;
 
@@ -30,7 +32,11 @@ import android.text.SpannableStringBuilder;
  * @author Alex Kuiper
  * 
  */
-public class ListItemHandler extends TagNodeHandler {
+public class ListItemHandler extends WrappingStyleHandler {
+
+	public ListItemHandler(StyledTextHandler wrappedHandler) {
+		super(wrappedHandler);
+	}
 
 	private int getMyIndex(TagNode node) {
 		if (node.getParent() == null) {
@@ -64,9 +70,7 @@ public class ListItemHandler extends TagNodeHandler {
 	}
 
 	@Override
-	public void handleTagNode(TagNode node, SpannableStringBuilder builder,
-			int start, int end, SpanStack spanStack) {
-
+	public void handleTagNode(TagNode node, SpannableStringBuilder builder, int start, int end, Style useStyle, SpanStack spanStack) {
 		if (builder.length() > 0
 				&& builder.charAt(builder.length() - 1) != '\n') {
 			builder.append("\n");
@@ -80,6 +84,6 @@ public class ListItemHandler extends TagNodeHandler {
 			ListItemSpan bSpan = new ListItemSpan();
             spanStack.pushSpan(bSpan, start, end);
 		}
-
+		super.handleTagNode(node, builder, start, end, useStyle, spanStack);
 	}
 }
