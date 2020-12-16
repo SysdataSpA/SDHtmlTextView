@@ -31,11 +31,13 @@ class MainActivity : AppCompatActivity() {
                 "<td>80</td>" +
                 "</tr>" +
                 "</table>" +
+                "<span style=\"margin-left: 50px\">"+
                 "<ul>" +
-                "  <li>Coffee</li>" +
-                "  <li>Tea</li>" +
-                "  <li>Milk</li>" +
+                "  <li><span style=\"margin-left: 50px\">Coffee</span></li>" +
+                "  <li><span style=\"margin-left: 50px\">Tea</span></li>" +
+                "  <li><span style=\"margin-left: 50px\">Milk</span></li>" +
                 "</ul>" +
+                "</span>"+
                 "<table>" +
                 "<tr>" +
                 "<th>Firstname</th>" +

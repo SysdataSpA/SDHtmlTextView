@@ -511,8 +511,8 @@ public class HtmlSpanner {
 
         registerHandler("blockquote", marginHandler);
 
-        TagNodeHandler listHandler = new StyledTextHandler(new Style()
-                        .setDisplayStyle(Style.DisplayStyle.BLOCK));
+        TagNodeHandler listHandler = new BorderAttributeHandler(wrap(new StyledTextHandler(new Style()
+                        .setDisplayStyle(Style.DisplayStyle.BLOCK))));
 
         registerHandler("ul", listHandler);
         registerHandler("ol", listHandler);
@@ -603,7 +603,7 @@ public class HtmlSpanner {
         TagNodeHandler centerHandler = new StyledTextHandler(new Style().setTextAlignment(Style.TextAlignment.CENTER));
         registerHandler("center", centerHandler);
 
-        registerHandler("li", new ListItemHandler());
+        registerHandler("li", new ListItemHandler(wrap(new StyledTextHandler(spanStyle))));
 
         registerHandler("a", new LinkHandler());
         registerHandler("img", new ImageHandler());
