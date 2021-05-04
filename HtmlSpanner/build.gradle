@@ -75,7 +75,7 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'sdHtmlSpanner'
     libraryName = 'htmlspanner'
-    bintrayOrganization = 'sysdata'
+    bintrayOrganization = 'sysdata-mobile'
 }
 
 //apply from: 'publishArtifactory.gradle'

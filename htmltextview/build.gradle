@@ -86,7 +86,7 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'sdHtmlTextView'
     libraryName = 'htmltextview'
-    bintrayOrganization = 'sysdata'
+    bintrayOrganization = 'sysdata-mobile'
 }
 
 //apply from: 'publishArtifactory.gradle'
