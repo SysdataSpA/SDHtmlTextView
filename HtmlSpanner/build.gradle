@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.artifactory-upload'
-apply plugin: 'com.github.dcendents.android-maven'
 
 // This is the library version used when deploying the artifact
 version = "1.0.3"
@@ -77,7 +76,4 @@ ext {
     libraryName = 'htmlspanner'
     bintrayOrganization = 'sysdata'
 }
-
-//apply from: 'publishArtifactory.gradle'
-apply from: 'publishBintray.gradle'
 

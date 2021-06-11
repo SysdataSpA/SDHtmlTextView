@@ -88,6 +88,3 @@ ext {
     libraryName = 'htmltextview'
     bintrayOrganization = 'sysdata'
 }
-
-//apply from: 'publishArtifactory.gradle'
-apply from: 'publishBintray.gradle'
